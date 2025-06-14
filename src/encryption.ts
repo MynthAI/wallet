@@ -3,7 +3,7 @@ import { handle } from "./errors.js";
 import { getLucid, WalletMaker } from "./wallet.js";
 import { Err, isProblem, mayFail, mayFailAsync, Ok, Result } from "ts-handling";
 import { type } from "arktype";
-import { Data, toText } from "@lucid-evolution/lucid";
+import { Data, Record, toText } from "@lucid-evolution/lucid";
 import { decrypt as eccryptoDecrypt } from "@vinarmani/eccrypto-js";
 import { createHash } from "crypto";
 import { Parser } from "./input.js";
@@ -80,9 +80,20 @@ const decryptMessage = async (
       eccryptoDecrypt(Buffer.from(privateKey, "hex"), encrypted),
     )
   ).unwrap();
-  if (isProblem(decrypted)) return Err(decrypted.error);
+  if (isProblem(decrypted)) return handleDecryptedError(decrypted.error);
 
   return Ok(decrypted.toString());
+};
+
+const handleDecryptedError = (error: string) => {
+  const errorMessages: Record<string, string> = {
+    "Bad MAC":
+      "Decryption error: The wallet provided does not match the valid wallet to decrypt.",
+    "Bad private key":
+      "Decryption failed: The private key is either invalid or does not belong to the intended wallet.",
+  };
+  const userFriendlyMessage = errorMessages[error] || error;
+  return Err(userFriendlyMessage);
 };
 
 export default decrypt;
