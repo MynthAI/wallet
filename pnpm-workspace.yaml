@@ -1,0 +1,4 @@
+onlyBuiltDependencies:
+  - esbuild
+  - secp256k1
+  - unrs-resolver

@@ -1,65 +1,60 @@
 {
-  "name": "wallet",
+  "name": "mywallet",
   "private": true,
   "version": "0.0.0",
-  "description": "CLI for transacting on Cardano",
+  "description": "CLI for interacting with Mynth wallets",
+  "license": "MIT",
+  "packageManager": "pnpm@10.12.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MynthAI/wallet.git"
   },
   "engines": {
-    "node": "^18.18.2"
+    "node": "^22.16.0"
   },
   "type": "module",
   "bin": {
-    "wallet": "./src/entrypoint.ts"
+    "mywallet": "./dist/entrypoint.js"
   },
   "scripts": {
-    "build": "npx tsc",
-    "lint": "concurrently \"npx prettier --check .\" \"npx eslint . --max-warnings=0\"",
-    "prettier": "npx prettier -w .",
-    "test": "npx ava"
+    "build": "pnpm tsc",
+    "lint": "concurrently \"pnpm exec prettier --check .\" \"pnpm exec eslint . --max-warnings=0\"",
+    "prettier": "pnpm exec prettier -w ."
+  },
+  "resolutions": {
+    "@harmoniclabs/crypto": "^0.3.0-dev0"
   },
   "dependencies": {
-    "@harmoniclabs/uint8array-utils": "^1.0.0",
-    "@lucid-evolution/lucid": "^0.3.4",
-    "@vinarmani/eccrypto-js": "^5.4.1",
-    "arktype": "^2.0.0-beta.5",
+    "@inquirer/prompts": "^7.5.3",
+    "@lucid-evolution/lucid": "^0.4.29",
+    "@mysten/sui": "^1.33.0",
+    "@webbuf/blake3": "^1.0.127",
+    "@webbuf/webbuf": "^1.0.127",
+    "arktype": "^2.1.20",
+    "bigint-mod-arith": "^3.3.1",
     "bip39": "^3.1.0",
-    "commander": "^12.1.0",
-    "conf": "^13.0.1",
-    "elliptic": "^6.5.6",
-    "got": "^13.0.0",
-    "inquirer": "^10.1.8",
-    "ts-handling": "^0.2.2",
-    "tsx": "^4.16.5"
+    "bs58": "^6.0.0",
+    "commander": "^14.0.0",
+    "conf": "^14.0.0",
+    "inquirer": "^12.6.3",
+    "js-sha3": "^0.9.3",
+    "ts-handling": "^0.2.5",
+    "web3-utils": "^4.3.3"
   },
   "devDependencies": {
-    "@ava/typescript": "^5.0.0",
-    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
-    "@types/elliptic": "^6.4.18",
-    "@types/node": "^22.1.0",
-    "@typescript-eslint/eslint-plugin": "^6.7.5",
-    "@typescript-eslint/parser": "^6.7.5",
-    "ava": "^6.1.3",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.1.0",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.29.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.2",
+    "@types/node": "^24.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "concurrently": "^9.1.2",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-ava": "^14.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "prettier": "^3.3.3"
-  },
-  "ava": {
-    "files": [
-      "**/*.test.ts"
-    ],
-    "extensions": {
-      "ts": "module"
-    },
-    "nodeArguments": [
-      "--loader=tsx",
-      "--no-warnings"
-    ]
+    "eslint-import-resolver-typescript": "^4.4.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint": "^9.29.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.20.3"
   }
 }
