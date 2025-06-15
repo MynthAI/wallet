@@ -1,75 +1,75 @@
-# Cardano Wallet
+# Mynth Wallet
 
-This project is a reference implementation for a simple Cardano wallet
-interacting with Mynth. It consists of a CLI written in TypeScript
-illustrating basic functions such as sending transactions with embedded
-encrypted messages.
+A simple CLI-based multi-chain wallet for interacting with Mynth wallets
+(intents).
 
-A Cardano wallet is a critical tool for interacting with Cardano,
-allowing users to store, send, receive, and stake tokens. The foundation
-of a Cardano wallet is the **seed phrase** (also known as a recovery
-phrase or mnemonic phrase). This is a series of 12, 15, or 24 words
-generated when the wallet is created. Every wallet has a unique seed
-phrase. The seed phrase is the master key to the wallet, allowing the
-user to recover the associated private keys and, therefore, all funds
-and staking rights.
+## About Mynth
 
-A Cardano wallet consists of two main types of private keys:
+Mynth is an intent-based, multi‑chain, layer zero protocol designed to
+simplify and secure cross‑chain token transfers. By encoding user
+intentions (or “intents”) into on‑chain contracts, Mynth enables
+seamless value movement between disparate blockchains without requiring
+trust in centralized bridges or custodians. Key characteristics of Mynth
+include:
 
-1.  **Payment Private Key:** Used for transactions, such as sending or
-    receiving tokens.
-2.  **Staking Private Key:** Used for delegating ADA to a staking pool
-    or managing staking rewards.
+- **Protocol‑level Intents**: Users express desired transfers as
+  intents, which are recorded in a contract and can be fulfilled or
+  canceled according to protocol rules.
+- **Decentralized Execution**: Executors monitor and fulfill intents on
+  behalf of users, unlocking funds only upon valid proof of execution.
+- **Secure Key Exposure**: When an intent is fulfilled or expired, the
+  associated private key is revealed in a verifiable way, ensuring that
+  only authorized parties can claim funds.
+- **Multi‑Chain Interoperability**: Mynth operates agnostically across
+  chains, enabling transfers between any compatible network.
 
-From each private key, a corresponding **public key** is derived. The
-public key is then used to generate a **Cardano address**, which others
-can use to send tokens to your wallet.
+## Purpose
+
+`mywallet` is a CLI companion utility for interacting with multi-chain
+wallets. When a user wants to perform a swap between two blockchains,
+Mynth encodes an intent within a contract, and these contracts act as
+wallets that are controlled by the Mynth Lizard network. Once an intent
+is fulfilled, it can be unlocked by an executor. If an intent expires,
+it can be canceled by its owner. In either case of unlocking or
+cancellation, the associated private key is exposed. To obtain this
+private key, a user must verify that they have the authority to request
+it.
+
+One of the functionalities of the `mywallet` tool is to allow a user to
+sign an intent to verify that they are one of the authorized
+representatives for interacting with that intent. This signed
+verification enables communicating with the Lizard network to retrieve
+the underlying private key. Once the private key is obtained, `mywallet`
+can be used to withdraw funds, transfer funds, or retrieve the addresses
+associated with the intent.
 
 ## Prerequisites
 
 To use this project, ensure you have the following installed:
 
-  - **Node.js** (v18.8 or later)
-  - **npm** (Node Package Manager)
+- [Node.js](https://nodejs.org/en/download)
+- [pnpm](https://pnpm.io/)
 
 ## Installation
 
-To install and set up the Cardano Wallet CLI project, follow these
-steps:
-
-1.  **Clone the repository:**
-    
-    ``` bash
-    git clone https://github.com/MynthAI/wallet.git
-    ```
-
-2.  **Navigate to the project directory:**
-    
-    ``` bash
-    cd wallet
-    ```
-
-3.  **Install the dependencies:**
-    
-    ``` bash
-    npm install
-    ```
-
-After completing these steps, the Cardano Wallet CLI should be ready for
-use. You can test this by running:
+To install and set up the `mywallet`, follow these steps:
 
 ``` bash
-npx wallet
+git clone https://github.com/MynthAI/wallet.git
+cd wallet
+pnpm install
+pnpm build
+pnpm link
+```
+
+After completing these steps, the `mywallet` should be ready for use.
+You can test this by running:
+
+``` bash
+mywallet --help
 ```
 
 ## License
 
 This project is licensed under the MIT License. By using or contributing
 to this project, you agree to the terms and conditions of MIT.
-
-## Support
-
-If you encounter any issues or have questions, feel free to reach out
-for support.
-
-Happy encrypting and decrypting\!

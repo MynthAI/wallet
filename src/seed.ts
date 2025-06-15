@@ -1,10 +1,12 @@
 import Conf from "conf";
 import { password } from "@inquirer/prompts";
-import { Err, Ok, Result } from "ts-handling";
-import { Bip32PrivateKey } from "@anastasia-labs/cardano-multiplatform-lib-nodejs";
-import { fromHex } from "@harmoniclabs/uint8array-utils";
+import { Err, mayFail, Ok } from "ts-handling";
 import { mnemonicToEntropy } from "bip39";
-import { generateSeedPhrase } from "@lucid-evolution/lucid";
+import { randomBytes } from "crypto";
+import { type } from "arktype";
+import { PrivateKey } from "./private-key.js";
+import { blake3Hash } from "@webbuf/blake3";
+import { WebBuf } from "@webbuf/webbuf";
 
 type Settings = { seed: string };
 
@@ -20,53 +22,31 @@ const config = new Conf<Settings>({
 const getSavedSeed = () => config.get("seed");
 
 const saveRandomSeed = () => {
-  const seed = generateSeedPhrase();
+  const seed = randomBytes(32).toString("hex");
   config.set("seed", seed);
 };
 
 const saveNewSeed = async () => {
-  const seed = await password({ message: "Enter your seed phrase" });
-  if (!seed) return Err("No seed phrase provided");
+  const seed = await password({ message: "Enter your seed" });
+  if (!seed) return Err("No seed provided");
 
-  config.set("seed", seed);
-  return Ok(seed);
+  const privateKey = PrivateKey(seed);
+  if (!(privateKey instanceof type.errors)) {
+    config.set("seed", privateKey);
+    return Ok(privateKey);
+  }
+
+  const entropy = mayFail(() => {
+    const entropy = mnemonicToEntropy(seed);
+    if (entropy.length != 64)
+      return blake3Hash(WebBuf.fromHex(entropy)).toHex();
+    return entropy;
+  });
+  if (!entropy.ok)
+    return Err("A valid private key or mnemonic seed must be provided");
+
+  config.set("seed", entropy.data);
+  return Ok(entropy.data);
 };
 
-const getSeed = async () => {
-  const savedSeed = config.get("seed");
-  if (savedSeed) return Ok(savedSeed);
-
-  return saveNewSeed();
-};
-
-const getAccountKeyFromSeed = (seed: string) =>
-  Bip32PrivateKey.from_bip39_entropy(
-    fromHex(mnemonicToEntropy(seed)),
-    new Uint8Array(),
-  )
-    .derive(2147485500)
-    .derive(2147485463)
-    .derive(2147483648);
-
-const getPrivateKeysFromSeed = (seed: string): [string, string] => {
-  const accountKey = getAccountKeyFromSeed(seed);
-  return [
-    accountKey.derive(0).derive(0).to_raw_key().to_bech32(),
-    accountKey.derive(2).derive(0).to_raw_key().to_bech32(),
-  ];
-};
-
-const getPrivateKeys = async (): Promise<Result<[string, string], string>> => {
-  const seed = await getSeed();
-  if (!seed.ok) return Err(seed.error);
-
-  return Ok(getPrivateKeysFromSeed(seed.data));
-};
-
-export {
-  getPrivateKeys,
-  getPrivateKeysFromSeed,
-  getSavedSeed,
-  saveNewSeed,
-  saveRandomSeed,
-};
+export { getSavedSeed, saveNewSeed, saveRandomSeed };

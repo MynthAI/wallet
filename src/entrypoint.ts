@@ -1,6 +1,4 @@
-#!/usr/bin/env -S npx tsx
-
-import program from "./cli.js";
+import program from "./commands/index.js";
 
 const run = async () => {
   try {
