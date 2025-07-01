@@ -1,7 +1,7 @@
-import { Command } from "commander";
 import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+import { Command } from "commander";
 
 const { name, description } = JSON.parse(
   readFileSync(

@@ -1,23 +1,12 @@
-import Conf from "conf";
-import { password } from "@inquirer/prompts";
-import { Err, mayFail, Ok } from "ts-handling";
-import { mnemonicToEntropy } from "bip39";
 import { randomBytes } from "crypto";
-import { type } from "arktype";
-import { PrivateKey } from "./private-key.js";
+import { password } from "@inquirer/prompts";
 import { blake3Hash } from "@webbuf/blake3";
 import { WebBuf } from "@webbuf/webbuf";
-
-type Settings = { seed: string };
-
-// Save seed locally and obscure. This is not designed for security.
-// DO NOT SAVE ANY SENSITIVE SEED PHRASE USING THIS APP. Use only seed phrases
-// dedicated to testing.
-const config = new Conf<Settings>({
-  projectName: "encrypt",
-  encryptionKey:
-    "65cee028e58eac7b391a04790670c863aff3f467fa1f325b37df2be8536ddec0",
-});
+import { type } from "arktype";
+import { mnemonicToEntropy } from "bip39";
+import { Err, mayFail, Ok } from "ts-handling";
+import config from "./config.js";
+import { PrivateKey } from "./private-key.js";
 
 const getSavedSeed = () => config.get("seed");
 

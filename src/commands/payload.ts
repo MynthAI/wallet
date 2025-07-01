@@ -1,15 +1,15 @@
-import { program, exit } from "./cli.js";
-import { getSavedSeed } from "../seed.js";
 import {
-  signData,
   getAddressDetails,
+  signData,
   verifyData,
   walletFromSeed,
 } from "@lucid-evolution/lucid";
-import { type } from "arktype";
-import { entropyToMnemonic } from "bip39";
 import { blake3Hash } from "@webbuf/blake3";
 import { WebBuf } from "@webbuf/webbuf";
+import { type } from "arktype";
+import { entropyToMnemonic } from "bip39";
+import { getSavedSeed } from "../seed.js";
+import { exit, program } from "./cli.js";
 
 const Payload = type("string > 0").pipe((payload) => {
   if (/^[a-fA-F0-9]{64}$/.test(payload)) return payload.toLowerCase();

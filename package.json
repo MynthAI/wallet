@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "CLI for interacting with Mynth wallets",
   "license": "MIT",
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.12.4",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MynthAI/wallet.git"
@@ -27,7 +27,7 @@
   "dependencies": {
     "@inquirer/prompts": "^7.5.3",
     "@lucid-evolution/lucid": "^0.4.29",
-    "@mysten/sui": "^1.33.0",
+    "@mysten/sui": "^1.34.0",
     "@webbuf/blake3": "^1.0.127",
     "@webbuf/webbuf": "^1.0.127",
     "arktype": "^2.1.20",
@@ -38,23 +38,24 @@
     "conf": "^14.0.0",
     "inquirer": "^12.6.3",
     "js-sha3": "^0.9.3",
+    "node-machine-id": "^1.1.12",
     "ts-handling": "^0.2.5",
     "web3-utils": "^4.3.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.29.0",
+    "@eslint/js": "^9.30.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.2",
-    "@types/node": "^24.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.34.0",
-    "@typescript-eslint/parser": "^8.34.0",
-    "concurrently": "^9.1.2",
+    "@types/node": "^24.0.8",
+    "@typescript-eslint/eslint-plugin": "^8.35.1",
+    "@typescript-eslint/parser": "^8.35.1",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.30.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-import-resolver-typescript": "^4.4.3",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint": "^9.29.0",
-    "prettier": "^3.5.3",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "prettier": "^3.6.2",
     "tsx": "^4.20.3"
   }
 }
