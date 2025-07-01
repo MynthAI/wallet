@@ -1,0 +1,2 @@
+plugins:
+  - "@ianvs/prettier-plugin-sort-imports"

@@ -1,8 +1,8 @@
-import { getSavedSeed, saveNewSeed, saveRandomSeed } from "../seed.js";
 import { confirm } from "@inquirer/prompts";
 import { entropyToMnemonic } from "bip39";
 import { toAddresses } from "../addresses/index.js";
-import { program, exit } from "./cli.js";
+import { getSavedSeed, saveNewSeed, saveRandomSeed } from "../seed.js";
+import { exit, program } from "./cli.js";
 
 program
   .command("new")

@@ -1,16 +1,16 @@
-import { toCardanoAddress } from "./cardano.js";
-import { toEthereumAddress } from "./ethereum.js";
-import { toSolanaAddress } from "./solana.js";
-import { toSuiAddress } from "./sui.js";
-import { toTronAddress } from "./tron.js";
-import { PrivateKey } from "../private-key.js";
 import { type } from "arktype";
 import { Err, Ok, Result } from "ts-handling";
 import {
   deriveCompressedEd25519PublicKey,
   deriveSecp256k1PublicKey,
 } from "../ecc/index.js";
+import { PrivateKey } from "../private-key.js";
+import { toCardanoAddress } from "./cardano.js";
+import { toEthereumAddress } from "./ethereum.js";
 import { toPublicKey } from "./public-key.js";
+import { toSolanaAddress } from "./solana.js";
+import { toSuiAddress } from "./sui.js";
+import { toTronAddress } from "./tron.js";
 
 type Network = "mainnet" | "testnet";
 
