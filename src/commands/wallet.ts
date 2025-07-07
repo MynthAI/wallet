@@ -1,6 +1,7 @@
 import { confirm } from "@inquirer/prompts";
 import { entropyToMnemonic } from "bip39";
 import { toAddresses } from "../addresses/index.js";
+import { getBalances } from "../balances.js";
 import { getSavedSeed, saveNewSeed, saveRandomSeed } from "../seed.js";
 import { exit, program } from "./cli.js";
 
@@ -59,4 +60,31 @@ program
 
     for (const [blockchain, address] of Object.entries(addresses))
       console.log(`${blockchain}: ${address}`);
+  });
+
+program
+  .command("balances")
+  .description("Outputs the wallet balances")
+  .option("--testnet", "Set flag to check balance for testnet wallet")
+  .action(async (options: { testnet: boolean }) => {
+    const seed = getSavedSeed();
+    if (!seed) return exit("No seed saved. Create a new wallet first.");
+
+    const network: "mainnet" | "testnet" = options.testnet
+      ? "testnet"
+      : "mainnet";
+    const addresses = toAddresses(seed, network).assert();
+    const balances = await getBalances(
+      addresses.cardano,
+      addresses.ethereum,
+      addresses.solana,
+      addresses.sui,
+      addresses.tron,
+      network,
+    );
+
+    if (!Object.keys(balances).length) console.debug("Wallet is empty");
+
+    for (const [token, amount] of Object.entries(balances))
+      console.log(`${token}: ${amount}`);
   });
