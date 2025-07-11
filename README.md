@@ -52,14 +52,24 @@ To use this project, ensure you have the following installed:
 
 ## Installation
 
-To install and set up the `mywallet`, follow these steps:
+Clone the repository:
 
 ``` bash
 git clone https://github.com/MynthAI/wallet.git
 cd wallet
-pnpm install
+```
+
+Ensure you have nodejs and pnpm installed:
+
+``` bash
+bash setup.sh
+```
+
+Set up the `mywallet` CLI globally:
+
+``` bash
 pnpm build
-pnpm link
+pnpm link --global
 ```
 
 After completing these steps, the `mywallet` should be ready for use.
