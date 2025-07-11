@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "CLI for interacting with Mynth wallets",
   "license": "MIT",
-  "packageManager": "pnpm@10.12.4",
+  "packageManager": "pnpm@10.13.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MynthAI/wallet.git"
@@ -34,7 +34,7 @@
   "dependencies": {
     "@inquirer/prompts": "^7.6.0",
     "@lucid-evolution/lucid": "^0.4.29",
-    "@mysten/sui": "^1.35.0",
+    "@mysten/sui": "^1.36.0",
     "@webbuf/blake3": "^1.0.127",
     "@webbuf/webbuf": "^1.0.127",
     "arktype": "^2.1.20",
@@ -55,8 +55,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.30.1",
-    "@ianvs/prettier-plugin-sort-imports": "^4.4.2",
-    "@types/node": "^24.0.10",
+    "@ianvs/prettier-plugin-sort-imports": "^4.5.1",
+    "@types/node": "^24.0.13",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
     "concurrently": "^9.2.0",
@@ -67,7 +67,6 @@
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
     "prettier": "^3.6.2",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "tsx": "^4.20.3"
   }
 }
